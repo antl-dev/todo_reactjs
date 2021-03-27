@@ -6,9 +6,10 @@ import { ReactComponent as AddSvg } from "../../assets/img/add.svg";
 import { ReactComponent as CloseSvg } from "../../assets/img/close.svg";
 import "./AddList.scss";
 
-export default function AddList({ colors }) {
+export default function AddList({ colors, onAdd }) {
   const [visiblePopup, setVisiblePopup] = useState(!false);
   const [activeBadge, setActiveBadge] = useState(colors[0].id);
+  const [inputValue, setInputValue] = useState("");
 
   const handleVisiblePopup = () => {
     setVisiblePopup((prev) => !prev);
@@ -18,7 +19,24 @@ export default function AddList({ colors }) {
     setActiveBadge(id);
   };
 
-  console.log(activeBadge);
+  const onChangeInput = (value) => {
+    setInputValue(value);
+  };
+
+  const handleCreateList = () => {
+    if (!inputValue) {
+      alert("Введите название списка");
+      return;
+    }
+    const color = colors.filter((color) => color.id === activeBadge)[0].name;
+
+    onAdd({
+      id: Math.random(),
+      name: inputValue,
+      color,
+    });
+    handleVisiblePopup();
+  };
 
   return (
     <div className="add-list">
@@ -38,7 +56,13 @@ export default function AddList({ colors }) {
             className="add-list__popup-close-btn"
             onClick={handleVisiblePopup}
           />
-          <input type="text" className="field" placeholder="Название списка" />
+          <input
+            value={inputValue}
+            onChange={(e) => onChangeInput(e.target.value)}
+            type="text"
+            className="field"
+            placeholder="Название списка"
+          />
 
           <div className="add-list__popup-colors">
             {colors.map(({ name, id }) => (
@@ -51,7 +75,9 @@ export default function AddList({ colors }) {
             ))}
           </div>
 
-          <button className="button">Добавить</button>
+          <button onClick={handleCreateList} className="button">
+            Добавить
+          </button>
         </div>
       )}
     </div>

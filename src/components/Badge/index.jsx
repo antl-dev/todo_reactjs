@@ -1,9 +1,9 @@
-import classnames from "classnames";
+import clsx from "clsx";
 import "./Badge.scss";
 export default function Badge({ color, className, onClick }) {
   return (
     <i
-      className={classnames("badge", { [`badge--${color}`]: color }, className)}
+      className={clsx("badge", { [`badge--${color}`]: color }, className)}
       onClick={onClick}
     ></i>
   );
