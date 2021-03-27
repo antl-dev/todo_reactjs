@@ -1,4 +1,6 @@
 .list {
+  $self: &;
+
   margin-bottom: 30px;
 
   &__add-button {
@@ -29,6 +31,22 @@
     .badge {
       position: relative;
       left: 5px;
+    }
+
+    span {
+      flex: 1;
+    }
+
+    &:hover #{$self}__remove-icon {
+      opacity: 0.3;
+    }
+
+    #{$self}__remove-icon {
+      opacity: 0;
+
+      &:hover {
+        opacity: 0.8;
+      }
     }
   }
   svg {

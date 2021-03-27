@@ -21,11 +21,17 @@ function App() {
     setLists((prev) => [...prev, obj]);
   };
 
+  const handleRemoveList = (name) => {
+    if (window.confirm("Вы уверены, что хотите удалить список?")) {
+      setLists((prev) => prev.filter((item) => item.name !== name));
+    }
+  };
+
   return (
     <div className="todo">
       <div className="todo__sidebar">
         <List items={[{ icon: <ListSvg />, name: "Все задачи" }]} />
-        <List items={lists} removable />
+        <List items={lists} removable onRemove={handleRemoveList} />
         <AddList colors={db.colors} onAdd={handleCreateList} />
       </div>
       <div className="todo__tasks"></div>

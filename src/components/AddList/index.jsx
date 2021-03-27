@@ -7,12 +7,18 @@ import { ReactComponent as CloseSvg } from "../../assets/img/close.svg";
 import "./AddList.scss";
 
 export default function AddList({ colors, onAdd }) {
-  const [visiblePopup, setVisiblePopup] = useState(!false);
+  const [visiblePopup, setVisiblePopup] = useState(false);
   const [activeBadge, setActiveBadge] = useState(colors[0].id);
   const [inputValue, setInputValue] = useState("");
 
-  const handleVisiblePopup = () => {
-    setVisiblePopup((prev) => !prev);
+  const handleShowVisiblePopup = () => {
+    setVisiblePopup(true);
+  };
+
+  const handleCloseVisiblePopup = () => {
+    setVisiblePopup(false);
+    setInputValue("");
+    setActiveBadge((prev) => colors[0].id);
   };
 
   const handleActiveBadge = (id) => {
@@ -35,7 +41,7 @@ export default function AddList({ colors, onAdd }) {
       name: inputValue,
       color,
     });
-    handleVisiblePopup();
+    handleCloseVisiblePopup();
   };
 
   return (
@@ -48,13 +54,13 @@ export default function AddList({ colors, onAdd }) {
             name: "Добавить список",
           },
         ]}
-        onClick={handleVisiblePopup}
+        onClick={handleShowVisiblePopup}
       />
       {visiblePopup && (
         <div className="add-list__popup">
           <CloseSvg
             className="add-list__popup-close-btn"
-            onClick={handleVisiblePopup}
+            onClick={handleCloseVisiblePopup}
           />
           <input
             value={inputValue}
