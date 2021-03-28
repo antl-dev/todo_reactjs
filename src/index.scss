@@ -39,6 +39,31 @@ body {
 }
 
 .tasks {
+  &__form {
+    margin-top: 20px;
+    &-new {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      opacity: 0.4;
+
+      &:hover {
+        opacity: 0.8;
+      }
+
+      svg {
+        width: 16px;
+        height: 16px;
+        margin-left: 4px;
+      }
+
+      span {
+        font-size: 16px;
+        margin-left: 19px;
+      }
+    }
+  }
+
   &__title {
     font-family: Montserrat;
     font-weight: 700;

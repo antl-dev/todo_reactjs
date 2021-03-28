@@ -1,5 +1,6 @@
 import axios from "axios";
 
+import AddTaskForm from "./AddTaskForm";
 import { ReactComponent as EditSvg } from "../../assets/img/edit.svg";
 import { ReactComponent as ChekSvg } from "../../assets/img/check.svg";
 import "./Tasks.scss";
@@ -38,6 +39,8 @@ export default function Task({ list, onEditTitle }) {
             <input readOnly type="text" value={text} />
           </div>
         ))}
+
+        <AddTaskForm />
       </div>
     </div>
   );
