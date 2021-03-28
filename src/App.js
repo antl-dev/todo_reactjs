@@ -10,6 +10,7 @@ import axios from "axios";
 function App() {
   const [lists, setLists] = useState(null);
   const [colors, setColors] = useState(null);
+  const [activeItemList, setActiveItemList] = useState(null);
 
   useEffect(() => {
     axios
@@ -33,18 +34,30 @@ function App() {
       });
     }
   };
+
+  const handleClickList = (obj) => {
+    setActiveItemList(obj);
+  };
+
   return (
     <div className="todo">
       <div className="todo__sidebar">
         <List items={[{ icon: <ListSvg />, name: "Все задачи" }]} />
         {lists ? (
-          <List items={lists} onRemove={handleRemoveList} />
+          <List
+            items={lists}
+            activeItem={activeItemList}
+            onClickItem={handleClickList}
+            onRemove={handleRemoveList}
+          />
         ) : (
           "Загрузка..."
         )}
         <AddList colors={colors} onAdd={handleCreateList} />
       </div>
-      <div className="todo__tasks">{lists && <Tasks list={lists[0]} />}</div>
+      <div className="todo__tasks">
+        {lists && activeItemList && <Tasks list={activeItemList} />}
+      </div>
     </div>
   );
 }

@@ -9,6 +9,7 @@ export default function Task({ list }) {
         {list.name} <EditSvg />
       </h2>
       <div className="tasks__items">
+        {!list.tasks.length && <h2>Задачи отсутствуют</h2>}
         {list.tasks.map(({ text, id }) => (
           <div className="tasks__items-row" key={id}>
             <div className="checkbox">
