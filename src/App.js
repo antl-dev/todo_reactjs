@@ -3,6 +3,7 @@ import { useState } from "react";
 
 import List from "./components/List";
 import AddList from "./components/AddList";
+import Tasks from "./components/Tasks";
 import "./App.scss";
 
 import db from "./assets/db.json";
@@ -34,7 +35,9 @@ function App() {
         <List items={lists} removable onRemove={handleRemoveList} />
         <AddList colors={db.colors} onAdd={handleCreateList} />
       </div>
-      <div className="todo__tasks"></div>
+      <div className="todo__tasks">
+        <Tasks />
+      </div>
     </div>
   );
 }
