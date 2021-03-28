@@ -12,26 +12,25 @@ export default function List({
   activeItem,
   onClickItem,
 }) {
-  console.log(activeItem);
   return (
     <ul className="list" onClick={onClick}>
-      {items.map(({ name, color, icon, className, id, tasks }) => (
+      {items.map((item) => (
         <li
-          key={name}
-          className={clsx(className, {
-            active: activeItem && name === activeItem.name,
+          key={item.name}
+          className={clsx(item.className, {
+            active: activeItem && item.name === activeItem.name,
           })}
-          onClick={onClickItem ? () => onClickItem({ name, tasks }) : null}
+          onClick={onClickItem ? () => onClickItem(item) : null}
         >
-          {icon ? icon : <Badge color={color.name} />}
+          {item.icon ? item.icon : <Badge color={item.color.name} />}
           <span>
-            {name}
-            {tasks && ` (${tasks.length})`}
+            {item.name}
+            {item.tasks && ` (${item.tasks.length})`}
           </span>
           {onRemove && (
             <RemoveSvg
               className="list__remove-icon"
-              onClick={() => onRemove(id)}
+              onClick={() => onRemove(item.id)}
             />
           )}
         </li>

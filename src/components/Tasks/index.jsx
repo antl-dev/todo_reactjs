@@ -1,12 +1,29 @@
+import axios from "axios";
+
 import { ReactComponent as EditSvg } from "../../assets/img/edit.svg";
 import { ReactComponent as ChekSvg } from "../../assets/img/check.svg";
 import "./Tasks.scss";
 
-export default function Task({ list }) {
+export default function Task({ list, onEditTitle }) {
+  const editTitle = () => {
+    const newTilte = window.prompt("Название списка", list.title);
+    if (newTilte) {
+      axios
+        .patch("http://localhost:3001/lists/" + list.id, {
+          name: newTilte,
+        })
+        .then(() => {
+          onEditTitle(list.id, newTilte);
+        })
+        .catch(() => {
+          alert("Неудалось изменить название!");
+        });
+    }
+  };
   return (
     <div className="tasks">
       <h2 className="tasks__title">
-        {list.name} <EditSvg />
+        {list.name} <EditSvg onClick={editTitle} />
       </h2>
       <div className="tasks__items">
         {!list.tasks.length && <h2>Задачи отсутствуют</h2>}
