@@ -1,15 +1,25 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 import List from "../List";
 import Badge from "../Badge";
+
 import { ReactComponent as AddSvg } from "../../assets/img/add.svg";
 import { ReactComponent as CloseSvg } from "../../assets/img/close.svg";
+
 import "./AddList.scss";
 
 export default function AddList({ colors, onAdd }) {
   const [visiblePopup, setVisiblePopup] = useState(false);
-  const [activeBadge, setActiveBadge] = useState(colors[0].id);
+  const [activeBadge, setActiveBadge] = useState(3);
   const [inputValue, setInputValue] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    if (Array.isArray(colors)) {
+      setActiveBadge(colors[0].id);
+    }
+  }, [colors]);
 
   const handleShowVisiblePopup = () => {
     setVisiblePopup(true);
@@ -18,7 +28,7 @@ export default function AddList({ colors, onAdd }) {
   const handleCloseVisiblePopup = () => {
     setVisiblePopup(false);
     setInputValue("");
-    setActiveBadge((prev) => colors[0].id);
+    setActiveBadge(() => colors[0].id);
   };
 
   const handleActiveBadge = (id) => {
@@ -35,13 +45,19 @@ export default function AddList({ colors, onAdd }) {
       return;
     }
     const color = colors.filter((color) => color.id === activeBadge)[0].name;
-
-    onAdd({
-      id: Math.random(),
-      name: inputValue,
-      color,
-    });
-    handleCloseVisiblePopup();
+    setIsLoading(true);
+    axios
+      .post("http://localhost:3001/lists", {
+        name: inputValue,
+        colorId: activeBadge,
+      })
+      .then(({ data }) => {
+        onAdd({ ...data, color: { name: color } });
+        handleCloseVisiblePopup();
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
 
   return (
@@ -81,8 +97,12 @@ export default function AddList({ colors, onAdd }) {
             ))}
           </div>
 
-          <button onClick={handleCreateList} className="button">
-            Добавить
+          <button
+            onClick={handleCreateList}
+            className="button"
+            disabled={isLoading}
+          >
+            {isLoading ? "Добавление..." : "Добавить"}
           </button>
         </div>
       )}

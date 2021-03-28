@@ -2,22 +2,24 @@ import { ReactComponent as EditSvg } from "../../assets/img/edit.svg";
 import { ReactComponent as ChekSvg } from "../../assets/img/check.svg";
 import "./Tasks.scss";
 
-export default function Task() {
+export default function Task({ list }) {
   return (
     <div className="tasks">
       <h2 className="tasks__title">
-        Фронтенд <EditSvg />
+        {list.name} <EditSvg />
       </h2>
       <div className="tasks__items">
-        <div className="tasks__items-row">
-          <div className="checkbox">
-            <input type="checkbox" id="chek" />
-            <label htmlFor="chek" className="">
-              <ChekSvg />
-            </label>
+        {list.tasks.map(({ text, id }) => (
+          <div className="tasks__items-row" key={id}>
+            <div className="checkbox">
+              <input type="checkbox" id={`check_${id}`} />
+              <label htmlFor={`check_${id}`}>
+                <ChekSvg />
+              </label>
+            </div>
+            <input readOnly type="text" value={text} />
           </div>
-          <p>Lorem ipsum dolor sit amet.</p>
-        </div>
+        ))}
       </div>
     </div>
   );
