@@ -39,7 +39,6 @@ export default function Task({ list, onEditTitle }) {
             <input readOnly type="text" value={text} />
           </div>
         ))}
-
         <AddTaskForm />
       </div>
     </div>
