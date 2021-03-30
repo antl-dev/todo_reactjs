@@ -5,7 +5,7 @@ import { ReactComponent as EditSvg } from "../../assets/img/edit.svg";
 import { ReactComponent as ChekSvg } from "../../assets/img/check.svg";
 import "./Tasks.scss";
 
-export default function Task({ list, onEditTitle }) {
+export default function Task({ list, onEditTitle, handleAddTask }) {
   const editTitle = () => {
     const newTilte = window.prompt("Название списка", list.title);
     if (newTilte) {
@@ -39,7 +39,7 @@ export default function Task({ list, onEditTitle }) {
             <input readOnly type="text" value={text} />
           </div>
         ))}
-        <AddTaskForm />
+        <AddTaskForm list={list} handleAddTask={handleAddTask} />
       </div>
     </div>
   );
