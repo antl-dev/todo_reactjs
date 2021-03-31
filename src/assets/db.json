@@ -1,16 +1,6 @@
 {
   "lists": [
     {
-      "id": 2,
-      "name": "Фронтенд",
-      "colorId": 4
-    },
-    {
-      "id": 3,
-      "name": "Фильмы",
-      "colorId": 3
-    },
-    {
       "id": 4,
       "name": "Книги",
       "colorId": 2
@@ -19,33 +9,9 @@
       "name": "Спорт",
       "colorId": 3,
       "id": 6
-    },
-    {
-      "name": "Дом",
-      "colorId": 6,
-      "id": 7
     }
   ],
-  "tasks": [
-    {
-      "id": 2,
-      "listId": 2,
-      "text": "Изучить паттерны проектирования",
-      "completed": false
-    },
-    {
-      "id": 3,
-      "listId": 2,
-      "text": "ReactJS Hooks (useState, useReducer, useEffect и т.д.)",
-      "completed": false
-    },
-    {
-      "listId": 3,
-      "text": "Избранный",
-      "completed": false,
-      "id": 4
-    }
-  ],
+  "tasks": [],
   "colors": [
     {
       "id": 1,
