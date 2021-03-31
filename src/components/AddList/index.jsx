@@ -52,7 +52,7 @@ export default function AddList({ colors, onAdd }) {
         colorId: activeBadge,
       })
       .then(({ data }) => {
-        onAdd({ ...data, color: { name: color } });
+        onAdd({ ...data, color, tasks: [] });
         handleCloseVisiblePopup();
       })
       .finally(() => {

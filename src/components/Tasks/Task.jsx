@@ -1,11 +1,28 @@
 import { ReactComponent as ChekSvg } from "../../assets/img/check.svg";
 import { ReactComponent as EditSvg } from "../../assets/img/edit.svg";
 import { ReactComponent as RemoveSvg } from "../../assets/img/remove.svg";
-export default function Task({ id, text, list, onRemove, onEdit }) {
+export default function Task({
+  id,
+  text,
+  completed,
+  list,
+  onRemove,
+  onEdit,
+  onCompleted,
+}) {
+  const onChangeCheckbox = (e) => {
+    onCompleted(list.id, id, e.target.checked);
+  };
+
   return (
     <div key={id} className="tasks__items-row">
       <div className="checkbox">
-        <input id={`task-${id}`} type="checkbox" />
+        <input
+          id={`task-${id}`}
+          checked={completed}
+          type="checkbox"
+          onChange={onChangeCheckbox}
+        />
         <label htmlFor={`task-${id}`}>
           <ChekSvg />
         </label>

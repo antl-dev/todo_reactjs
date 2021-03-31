@@ -19,6 +19,21 @@
       "name": "Спорт",
       "colorId": 3,
       "id": 6
+    },
+    {
+      "name": "Курс React JS TODO",
+      "colorId": 6,
+      "id": 7
+    },
+    {
+      "name": "123",
+      "colorId": 3,
+      "id": 8
+    },
+    {
+      "name": "Изучить паттерны проектирования",
+      "colorId": 6,
+      "id": 9
     }
   ],
   "tasks": [
@@ -32,13 +47,25 @@
       "id": 3,
       "listId": 2,
       "text": "ReactJS Hooks (useState, useReducer, useEffect и т.д.)",
-      "completed": true
+      "completed": false
     },
     {
       "listId": 3,
-      "text": "Избранный 2",
+      "text": "Избранный",
       "completed": false,
       "id": 4
+    },
+    {
+      "listId": 8,
+      "text": "3333333333333333333333",
+      "completed": false,
+      "id": 6
+    },
+    {
+      "listId": 9,
+      "text": "234",
+      "completed": false,
+      "id": 7
     }
   ],
   "colors": [
