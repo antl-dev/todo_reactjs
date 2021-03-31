@@ -18,7 +18,9 @@ export default function List({
         <li
           key={item.name}
           className={clsx(item.className, {
-            active: activeItem && item.name === activeItem.name,
+            active: item.active
+              ? item.active
+              : activeItem && item.name === activeItem.name,
           })}
           onClick={onClickItem ? () => onClickItem(item) : null}
         >

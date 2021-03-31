@@ -65,7 +65,9 @@ function App() {
   return (
     <div className="todo">
       <div className="todo__sidebar">
-        <List items={[{ icon: <ListSvg />, name: "Все задачи" }]} />
+        <List
+          items={[{ active: true, icon: <ListSvg />, name: "Все задачи" }]}
+        />
         {lists ? (
           <List
             items={lists}
