@@ -44,7 +44,6 @@ export default function AddList({ colors, onAdd }) {
       alert("Введите название списка");
       return;
     }
-    const color = colors.filter((color) => color.id === activeBadge)[0].name;
     setIsLoading(true);
     axios
       .post("http://localhost:3001/lists", {
@@ -52,8 +51,13 @@ export default function AddList({ colors, onAdd }) {
         colorId: activeBadge,
       })
       .then(({ data }) => {
-        onAdd({ ...data, color, tasks: [] });
+        const color = colors.filter((c) => c.id === activeBadge)[0];
+        const listObj = { ...data, color, tasks: [] };
+        onAdd(listObj);
         handleCloseVisiblePopup();
+      })
+      .catch(() => {
+        alert("Ошибка при добавлении списка!");
       })
       .finally(() => {
         setIsLoading(false);

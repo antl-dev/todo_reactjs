@@ -4,7 +4,7 @@ import axios from "axios";
 import { ReactComponent as AddSvg } from "../../assets/img/add.svg";
 import "./Tasks.scss";
 
-export default function AddTaskForm({ list, handleAddTask }) {
+export default function AddTaskForm({ list, onAddTask }) {
   const [visibleForm, setVisibleForm] = useState(false);
   const [inpItValue, setInputValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -28,10 +28,11 @@ export default function AddTaskForm({ list, handleAddTask }) {
     axios
       .post("http://localhost:3001/tasks", obj)
       .then(({ data }) => {
-        handleAddTask(list.id, data);
+        onAddTask(list.id, data);
         toggleFormVisible();
       })
-      .catch(() => {
+      .catch((e) => {
+        console.log(e);
         alert("Ошибка при добавлении задачи!");
       })
       .finally(() => {

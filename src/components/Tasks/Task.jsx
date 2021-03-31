@@ -8,10 +8,10 @@ export default function Task({
   list,
   onRemove,
   onEdit,
-  onCompleted,
+  onComplete,
 }) {
   const onChangeCheckbox = (e) => {
-    onCompleted(list.id, id, e.target.checked);
+    onComplete(list.id, id, e.target.checked);
   };
 
   return (

@@ -33,9 +33,17 @@ function App() {
 
   const handleRemoveList = (obj) => {
     if (window.confirm("Вы уверены, что хотите удалить список?")) {
-      axios.delete("http://localhost:3001/lists/" + obj.id).then(() => {
-        setLists((prev) => prev.filter((item) => item.id !== obj.id));
-      });
+      axios
+        .delete("http://localhost:3001/lists/" + obj.id)
+        .then(() => {
+          setLists((prev) => prev.filter((item) => item.id !== obj.id));
+        })
+        .then(() => {
+          history.push("/");
+        })
+        .catch(() => {
+          alert("Не удалось удалить список!");
+        });
     }
   };
 

@@ -4,9 +4,49 @@
       "id": 4,
       "name": "Книги",
       "colorId": 2
+    },
+    {
+      "name": "Frontend",
+      "colorId": 8,
+      "id": 5
+    },
+    {
+      "name": "TV",
+      "colorId": 5,
+      "id": 8
+    },
+    {
+      "name": "Дом",
+      "colorId": 6,
+      "id": 9
     }
   ],
-  "tasks": [],
+  "tasks": [
+    {
+      "listId": 5,
+      "text": "Основы React js",
+      "completed": true,
+      "id": 1
+    },
+    {
+      "listId": 5,
+      "text": "React Router",
+      "completed": true,
+      "id": 2
+    },
+    {
+      "listId": 4,
+      "text": "Бойцовский клуб",
+      "completed": true,
+      "id": 6
+    },
+    {
+      "listId": 5,
+      "text": "Firebase",
+      "completed": true,
+      "id": 7
+    }
+  ],
   "colors": [
     {
       "id": 1,
