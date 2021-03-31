@@ -31,10 +31,10 @@ function App() {
     setLists((prev) => [...prev, obj]);
   };
 
-  const handleRemoveList = (id) => {
+  const handleRemoveList = (obj) => {
     if (window.confirm("Вы уверены, что хотите удалить список?")) {
-      axios.delete("http://localhost:3001/lists/" + id).then(() => {
-        setLists((prev) => prev.filter((item) => item.id !== id));
+      axios.delete("http://localhost:3001/lists/" + obj.id).then(() => {
+        setLists((prev) => prev.filter((item) => item.id !== obj.id));
       });
     }
   };
@@ -165,7 +165,7 @@ function App() {
         <AddList colors={colors} onAdd={handleCreateList} />
       </div>
       <div className="todo__tasks">
-        <Route exact patch="/">
+        <Route exact path="/">
           {lists &&
             lists.map((list) => (
               <Tasks
@@ -180,7 +180,7 @@ function App() {
               />
             ))}
         </Route>
-        <Route patch="/lists/:id">
+        <Route path="/lists/:id">
           {lists && activeItemList && (
             <Tasks
               list={activeItemList}
