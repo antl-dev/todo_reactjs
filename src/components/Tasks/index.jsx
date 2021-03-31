@@ -5,7 +5,12 @@ import { ReactComponent as EditSvg } from "../../assets/img/edit.svg";
 import { ReactComponent as ChekSvg } from "../../assets/img/check.svg";
 import "./Tasks.scss";
 
-export default function Task({ list, onEditTitle, handleAddTask }) {
+export default function Task({
+  list,
+  onEditTitle,
+  handleAddTask,
+  withoutEmpty,
+}) {
   const editTitle = () => {
     const newTilte = window.prompt("Название списка", list.title);
     if (newTilte) {
@@ -23,11 +28,11 @@ export default function Task({ list, onEditTitle, handleAddTask }) {
   };
   return (
     <div className="tasks">
-      <h2 className="tasks__title">
+      <h2 className="tasks__title" style={{ color: list.color.hex }}>
         {list.name} <EditSvg onClick={editTitle} />
       </h2>
       <div className="tasks__items">
-        {!list.tasks.length && <h2>Задачи отсутствуют</h2>}
+        {!withoutEmpty && !list.tasks.length && <h2>Задачи отсутствуют</h2>}
         {list.tasks.map(({ text, id }) => (
           <div className="tasks__items-row" key={id}>
             <div className="checkbox">

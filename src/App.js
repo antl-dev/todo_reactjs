@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Route } from "react-router-dom";
 
 import { ReactComponent as ListSvg } from "./assets/img/list.svg";
 
@@ -81,13 +82,26 @@ function App() {
         <AddList colors={colors} onAdd={handleCreateList} />
       </div>
       <div className="todo__tasks">
-        {lists && activeItemList && (
-          <Tasks
-            list={activeItemList}
-            onEditTitle={onEditListTitle}
-            handleAddTask={handleAddTask}
-          />
-        )}
+        <Route exact patch="/">
+          {lists &&
+            lists.map((item) => (
+              <Tasks
+                list={item}
+                onEditTitle={onEditListTitle}
+                handleAddTask={handleAddTask}
+                withoutEmpty
+              />
+            ))}
+        </Route>
+        <Route patch="/lists/:id">
+          {lists && activeItemList && (
+            <Tasks
+              list={activeItemList}
+              onEditTitle={onEditListTitle}
+              handleAddTask={handleAddTask}
+            />
+          )}
+        </Route>
       </div>
     </div>
   );

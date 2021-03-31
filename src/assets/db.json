@@ -24,6 +24,11 @@
       "name": "Спорт",
       "colorId": 3,
       "id": 6
+    },
+    {
+      "name": "Test",
+      "colorId": 1,
+      "id": 7
     }
   ],
   "tasks": [
@@ -146,6 +151,18 @@
       "text": "123123",
       "completed": false,
       "id": 25
+    },
+    {
+      "listId": 2,
+      "text": "123",
+      "completed": false,
+      "id": 26
+    },
+    {
+      "listId": 3,
+      "text": "123",
+      "completed": false,
+      "id": 27
     }
   ],
   "colors": [
