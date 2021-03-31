@@ -17,12 +17,12 @@
     border-bottom: 1px solid #f2f2f2;
 
     &:hover {
-      img {
+      svg {
         opacity: 0.2;
       }
     }
 
-    img {
+    svg {
       opacity: 0;
       cursor: pointer;
       margin-left: 15px;
