@@ -1,15 +1,18 @@
 import axios from "axios";
 
 import AddTaskForm from "./AddTaskForm";
+import Task from "./Task";
 import { ReactComponent as EditSvg } from "../../assets/img/edit.svg";
-import { ReactComponent as ChekSvg } from "../../assets/img/check.svg";
+
 import "./Tasks.scss";
 
-export default function Task({
+export default function Tasks({
   list,
   onEditTitle,
   handleAddTask,
   withoutEmpty,
+  onRemoveTask,
+  onEditTask,
 }) {
   const editTitle = () => {
     const newTilte = window.prompt("Название списка", list.title);
@@ -22,10 +25,11 @@ export default function Task({
           onEditTitle(list.id, newTilte);
         })
         .catch(() => {
-          alert("Неудалось изменить название!");
+          alert("Не удалось изменить название!");
         });
     }
   };
+
   return (
     <div className="tasks">
       <h2 className="tasks__title" style={{ color: list.color.hex }}>
@@ -34,15 +38,14 @@ export default function Task({
       <div className="tasks__items">
         {!withoutEmpty && !list.tasks.length && <h2>Задачи отсутствуют</h2>}
         {list.tasks.map(({ text, id }) => (
-          <div className="tasks__items-row" key={id}>
-            <div className="checkbox">
-              <input type="checkbox" id={`check_${id}`} />
-              <label htmlFor={`check_${id}`}>
-                <ChekSvg />
-              </label>
-            </div>
-            <input readOnly type="text" value={text} />
-          </div>
+          <Task
+            key={id}
+            text={text}
+            id={id}
+            list={list}
+            onRemove={onRemoveTask}
+            onEdit={onEditTask}
+          />
         ))}
         <AddTaskForm list={list} handleAddTask={handleAddTask} />
       </div>

@@ -4,7 +4,6 @@ import { Route, useHistory, useLocation } from "react-router-dom";
 import { ReactComponent as ListSvg } from "./assets/img/list.svg";
 
 import { List, AddList, Tasks } from "./components";
-import "./App.scss";
 
 import axios from "axios";
 
@@ -14,6 +13,7 @@ function App() {
   const [activeItemList, setActiveItemList] = useState(null);
 
   let history = useHistory();
+  // eslint-disable-next-line
   let location = useLocation();
 
   useEffect(() => {
@@ -48,6 +48,49 @@ function App() {
     });
 
     setLists(newList);
+  };
+
+  const onRemoveTask = (listId, taskId) => {
+    if (window.confirm("Вы действительно хотите удалить задачу?")) {
+      const newList = lists.map((item) => {
+        if (item.id === listId) {
+          item.tasks = item.tasks.filter((task) => task.id !== taskId);
+        }
+        return item;
+      });
+      setLists(newList);
+      axios.delete("http://localhost:3001/tasks/" + taskId).catch(() => {
+        alert("Не удалось удалить задачу!");
+      });
+    }
+  };
+
+  const onEditTask = (listId, taskObj) => {
+    const newTaskText = window.prompt("Текст задачи", taskObj.text);
+
+    if (!newTaskText) {
+      return;
+    }
+
+    const newList = lists.map((list) => {
+      if (list.id === listId) {
+        list.tasks = list.tasks.map((task) => {
+          if (task.id === taskObj.id) {
+            task.text = newTaskText;
+          }
+          return task;
+        });
+      }
+      return list;
+    });
+    setLists(newList);
+    axios
+      .patch("http://localhost:3001/tasks/" + taskObj.id, {
+        text: newTaskText,
+      })
+      .catch(() => {
+        alert("Не удалось обновить задачу");
+      });
   };
 
   const onEditListTitle = (id, title) => {
@@ -108,6 +151,8 @@ function App() {
                 list={list}
                 onEditTitle={onEditListTitle}
                 handleAddTask={handleAddTask}
+                onRemoveTask={onRemoveTask}
+                onEditTask={onEditTask}
                 withoutEmpty
               />
             ))}
@@ -118,6 +163,8 @@ function App() {
               list={activeItemList}
               onEditTitle={onEditListTitle}
               handleAddTask={handleAddTask}
+              onRemoveTask={onRemoveTask}
+              onEditTask={onEditTask}
             />
           )}
         </Route>
