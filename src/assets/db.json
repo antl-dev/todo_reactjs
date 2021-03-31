@@ -4,11 +4,6 @@
       "id": 4,
       "name": "Книги",
       "colorId": 2
-    },
-    {
-      "name": "Спорт",
-      "colorId": 3,
-      "id": 6
     }
   ],
   "tasks": [],
