@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Route } from "react-router-dom";
+import { Route, useHistory, useLocation } from "react-router-dom";
 
 import { ReactComponent as ListSvg } from "./assets/img/list.svg";
 
@@ -12,6 +12,9 @@ function App() {
   const [lists, setLists] = useState(null);
   const [colors, setColors] = useState(null);
   const [activeItemList, setActiveItemList] = useState(null);
+
+  let history = useHistory();
+  let location = useLocation();
 
   useEffect(() => {
     axios
@@ -34,10 +37,6 @@ function App() {
         setLists((prev) => prev.filter((item) => item.id !== id));
       });
     }
-  };
-
-  const handleClickList = (obj) => {
-    setActiveItemList(obj);
   };
 
   const handleAddTask = (listid, taskObj) => {
@@ -63,17 +62,36 @@ function App() {
     setLists(newList);
   };
 
+  useEffect(() => {
+    const listId = history.location.pathname.split("lists/")[1];
+    if (lists) {
+      const list = lists.find((list) => list.id === Number(listId));
+      setActiveItemList(list);
+    }
+  }, [lists, history.location.pathname]);
+
   return (
     <div className="todo">
       <div className="todo__sidebar">
         <List
-          items={[{ active: true, icon: <ListSvg />, name: "Все задачи" }]}
+          items={[
+            {
+              active: history.location.pathname === "/",
+              icon: <ListSvg />,
+              name: "Все задачи",
+            },
+          ]}
+          onClickItem={() => {
+            history.push("/");
+          }}
         />
         {lists ? (
           <List
             items={lists}
             activeItem={activeItemList}
-            onClickItem={handleClickList}
+            onClickItem={(list) => {
+              history.push(`/lists/${list.id}`);
+            }}
             onRemove={handleRemoveList}
           />
         ) : (
@@ -84,9 +102,10 @@ function App() {
       <div className="todo__tasks">
         <Route exact patch="/">
           {lists &&
-            lists.map((item) => (
+            lists.map((list) => (
               <Tasks
-                list={item}
+                key={list.id}
+                list={list}
                 onEditTitle={onEditListTitle}
                 handleAddTask={handleAddTask}
                 withoutEmpty

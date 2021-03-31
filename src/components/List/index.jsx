@@ -13,18 +13,18 @@ export default function List({
   onClickItem,
 }) {
   return (
-    <ul className="list" onClick={onClick}>
-      {items.map((item) => (
+    <ul onClick={onClick} className="list">
+      {items.map((item, index) => (
         <li
-          key={item.name}
+          key={index}
           className={clsx(item.className, {
             active: item.active
               ? item.active
-              : activeItem && item.name === activeItem.name,
+              : activeItem && activeItem.id === item.id,
           })}
           onClick={onClickItem ? () => onClickItem(item) : null}
         >
-          {item.icon ? item.icon : <Badge color={item.color.name} />}
+          <i>{item.icon ? item.icon : <Badge color={item.color.name} />}</i>
           <span>
             {item.name}
             {item.tasks && ` (${item.tasks.length})`}
@@ -32,7 +32,7 @@ export default function List({
           {onRemove && (
             <RemoveSvg
               className="list__remove-icon"
-              onClick={() => onRemove(item.id)}
+              onClick={() => onRemove(item)}
             />
           )}
         </li>

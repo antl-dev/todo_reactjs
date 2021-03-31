@@ -18,8 +18,8 @@ body {
 
 .todo {
   display: flex;
-  width: 750px;
-  height: 530px;
+  width: calc(100vh - 30px);
+  height: calc(100vh - 100px);
   box-shadow: 1px 2px 20px #f3f3f3;
   border-radius: 10px;
   border: 1px solid #f4f6f8;
